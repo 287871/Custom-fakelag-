@@ -8,14 +8,14 @@ local version_url = "https://raw.githubusercontent.com/287871/Custom-fakelag-/ma
 print("-------------------")
 http.Get(version_url, function(content)
 	if version == string.gsub(content, "[\r\n]", "") then
-		print("[Custom fakelag ] newest version")
+		print("[ Custom fakelag ] Newest version")
 	else
         local new_version = http.Get("https://raw.githubusercontent.com/287871/Custom-fakelag-/main/Custom%20fakelag.lua");
         local update_log = http.Get("https://raw.githubusercontent.com/287871/Custom-fakelag-/main/README.md");
         local old = file.Open(GetScriptName(), "w")
         old:Write(new_version)
         old:Close()
-        print("[Custom fakelag ] It needs to be updated ( Just reload )")
+        print("[ Custom fakelag ] It needs to be updated ( Just reload )")
         print(update_log)
 		UnloadScript(GetScriptName())
 	end
@@ -357,4 +357,5 @@ end)
 callbacks.Register("AimbotTarget", function(e)
     t = e:GetName() ~= nil and e or nil
 end)
+
 
