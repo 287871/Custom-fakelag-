@@ -1,2 +1,2 @@
 --Update log
---21/1/24 release
+--21/1/24 fix xy on the menu doesn't work
