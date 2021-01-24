@@ -268,25 +268,25 @@ local function jitter_fakelag()
 
                 draw.SetFont( font )
                 draw.Color( r3, g3, b3, a3 );    
-                draw.TextShadow( x+5, y+30, "HISTORY" )
+                draw.TextShadow( x+5, y+32, "HISTORY" )
                 draw.SetFont( font )
                 draw.Color( 30, 144, 255, 255 );
                 if math.floor(FinalVelocity) == 0 then
                     draw.Color( 189, 108, 39, 255 ); 
-                    draw.TextShadow( x+55, y+30, custom_fakelag_static_center:GetValue().."-"..gui.GetValue("misc.fakelag.factor").."-"..custom_fakelag_static_limit:GetValue().."-"..custom_fakelag_static_frequency:GetValue() )
-                    draw.TextShadow(  x+120, y+30, "M:"..maxticks )
-                    draw.TextShadow(  x+155, y+30, "F:"..custom_fakelag_static_frequency:GetValue() )
+                    draw.TextShadow( x+55, y+32, custom_fakelag_static_center:GetValue().."-"..gui.GetValue("misc.fakelag.factor").."-"..custom_fakelag_static_limit:GetValue().."-"..custom_fakelag_static_frequency:GetValue() )
+                    draw.TextShadow(  x+120, y+32, "M:"..maxticks )
+                    draw.TextShadow(  x+155, y+32, "F:"..custom_fakelag_static_frequency:GetValue() )
                 elseif math.floor(FinalVelocity) > 0 then
                     draw.Color( 189, 108, 39, 255 ); 
-                    draw.TextShadow( x+55, y+30, custom_fakelag_moving_center:GetValue().."-"..gui.GetValue("misc.fakelag.factor").."-"..custom_fakelag_moving_limit:GetValue().."-"..custom_fakelag_moving_frequency:GetValue() )
-                    draw.TextShadow(  x+120, y+30, "M:"..maxticks )
-                    draw.TextShadow(  x+155, y+30, "F:"..custom_fakelag_moving_frequency:GetValue() )
+                    draw.TextShadow( x+55, y+32, custom_fakelag_moving_center:GetValue().."-"..gui.GetValue("misc.fakelag.factor").."-"..custom_fakelag_moving_limit:GetValue().."-"..custom_fakelag_moving_frequency:GetValue() )
+                    draw.TextShadow(  x+120, y+32, "M:"..maxticks )
+                    draw.TextShadow(  x+155, y+32, "F:"..custom_fakelag_moving_frequency:GetValue() )
                 end
                 if gui.GetValue("rbot.accuracy.movement.slowkey") ~= 0 and input.IsButtonDown(gui.GetValue("rbot.accuracy.movement.slowkey")) then
                     draw.Color( 189, 108, 39, 255 ); 
-                    draw.TextShadow( x+55, y+30, custom_fakelag_slowwalk_center:GetValue().."-"..gui.GetValue("misc.fakelag.factor").."-"..custom_fakelag_slowwalk_limit:GetValue().."-"..custom_fakelag_slowwalk_frequency:GetValue() )
-                    draw.TextShadow(  x+120, y+30, "M:"..maxticks )
-                    draw.TextShadow(  x+155, y+30, "F:"..custom_fakelag_slowwalk_frequency:GetValue() )
+                    draw.TextShadow( x+55, y+32, custom_fakelag_slowwalk_center:GetValue().."-"..gui.GetValue("misc.fakelag.factor").."-"..custom_fakelag_slowwalk_limit:GetValue().."-"..custom_fakelag_slowwalk_frequency:GetValue() )
+                    draw.TextShadow(  x+120, y+32, "M:"..maxticks )
+                    draw.TextShadow(  x+155, y+32, "F:"..custom_fakelag_slowwalk_frequency:GetValue() )
                 end
             end
         end    
