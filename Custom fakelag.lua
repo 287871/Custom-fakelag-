@@ -3,7 +3,7 @@
 --Part of the code comes from the aimware forum
 --Producer: Qi QID AIMWAREQI
 -- Update
-local version = "version 1.0"
+local version = "version 1.1"
 local version_url = "https://raw.githubusercontent.com/287871/Custom-fakelag-/main/VERSION.txt"
 print("-------------------")
 http.Get(version_url, function(content)
@@ -187,7 +187,7 @@ end
 --
 local font = draw.CreateFont( "Verdana", 12.5, 11.5 )
 local function jitter_fakelag()
-    if not tX then
+    if tX ~= custom_fakelag_indicator_x:GetValue() or tY ~= custom_fakelag_indicator_y:GetValue() then
         tX, tY = custom_fakelag_indicator_x:GetValue(),custom_fakelag_indicator_y:GetValue()
     end
 
@@ -218,8 +218,8 @@ local function jitter_fakelag()
             --
 
             if gui.GetValue("misc.master") and gui.GetValue("rbot.master") and custom_fakelag_indicator:GetValue() then
-               
-                local x, y = drag_menu(tX, tY, 100, 100);
+                
+                local x, y = drag_menu(tX, tY, 200, 70);
                 local r, g, b, a = custom_fakelag_indicator_clr:GetValue();
                 local r2, g2, b2, a2 = custom_fakelag_indicator_clr2:GetValue();
                 local r3, g3, b3, a3 = custom_fakelag_indicator_clr3:GetValue();
@@ -330,11 +330,12 @@ end)
 callbacks.Register( "Draw", "UpdateValues", function()
     if not entities.GetLocalPlayer() then return end
     if not entities.GetLocalPlayer():IsAlive() then return end
-    if not tX then
+    if tX ~= custom_fakelag_indicator_x:GetValue() or tY ~= custom_fakelag_indicator_y:GetValue() then
         tX, tY = custom_fakelag_indicator_x:GetValue(),custom_fakelag_indicator_y:GetValue()
     end
     m=s-h
-    local x, y = drag_menu(tX, tY, 100, 100);
+    
+    local x, y = drag_menu(tX, tY, 200, 70);
     if custom_fakelag_enabled:GetValue() then
     if gui.GetValue("misc.master") and gui.GetValue("rbot.master") and custom_fakelag_indicator:GetValue() then
     draw.SetFont(font)
