@@ -8,7 +8,8 @@ local version_url = "https://raw.githubusercontent.com/287871/Custom-fakelag-/ma
 print("-------------------")
 http.Get(version_url, function(content)
 	if version == string.gsub(content, "[\r\n]", "") then
-		print("[ Custom fakelag ] Newest version")
+        print("[ Custom fakelag ] Newest version")
+        Update = 1
 	else
         local new_version = http.Get("https://raw.githubusercontent.com/287871/Custom-fakelag-/main/Custom%20fakelag.lua");
         local update_log = http.Get("https://raw.githubusercontent.com/287871/Custom-fakelag-/main/README.md");
@@ -17,9 +18,11 @@ http.Get(version_url, function(content)
         old:Close()
         print("[ Custom fakelag ] It needs to be updated ( Just reload )")
         print(update_log)
-		UnloadScript(GetScriptName())
+        Update = 0
 	end
 end)
+
+
 --gui
 local custom_fakelag_reference = gui.Reference( "Misc", "Enhancement" );
 local custom_fakelag_maxticks = gui.Reference("Misc", "General", "Server", "sv_maxusrcmdprocessticks");
@@ -47,7 +50,8 @@ local custom_fakelag_indicator_clr2 = gui.ColorPicker( custom_fakelag_indicator,
 local custom_fakelag_indicator_clr3 = gui.ColorPicker( custom_fakelag_indicator, "clr3", "name", 106, 90, 205, 255 );
 local x, y = draw.GetScreenSize();
 local custom_fakelag_indicator_x = gui.Slider( custom_fakelag_groupbox, "customfakelag.indicato.x", "             x", 20, 0, x );
-local custom_fakelag_indicator_y = gui.Slider( custom_fakelag_groupbox, "customfakelag.indicato.y", "             y", 600, 0, y )
+local custom_fakelag_indicator_y = gui.Slider( custom_fakelag_groupbox, "customfakelag.indicato.y", "             y", 600, 0, y );
+
 -- UI
 callbacks.Register("Draw", function()
     if custom_fakelag_enabled:GetValue() then
@@ -182,10 +186,52 @@ local drag_menu = function(x, y, w, h)
 
     return tX, tY
 end
+local font = draw.CreateFont( "Verdana", 12.5, 11.5 )
+local font2 = draw.CreateFont( "Verdana", 20, 11.5 )
+--Update_indicator
+local function Update_indicator()
+    if tX ~= custom_fakelag_indicator_x:GetValue() or tY ~= custom_fakelag_indicator_y:GetValue() then
+        tX, tY = custom_fakelag_indicator_x:GetValue(),custom_fakelag_indicator_y:GetValue()
+    end
+    local lp = entities.GetLocalPlayer();
+    if lp ~= nil then
+        local x, y = drag_menu(tX, tY, 200, 70);
+        local x, y = x , y-50
+        local r, g, b, a = custom_fakelag_indicator_clr2:GetValue()
+        local r2, g2, b2, a2 = custom_fakelag_indicator_clr3:GetValue();
+        draw_GradientRect( x, y, 80 , 2, 1 , { r, g, b, 0 }, {r, g, b, a});
+        draw_GradientRect( x, y, 50 , 24, 1 , { r, g, b, 0 }, {r, g, b, a*0.5});
+        draw_GradientRect( x, y+24, 125 , 2, 1 , { r, g, b, 0 }, {r, g, b, a});
+        draw_GradientRect( x+75, y, 125 , 2, 1 , { r, g, b, a }, {r, g, b, 0});
+        draw_GradientRect( x+120, y+24, 80 , 2, 1 , { r, g, b, a }, {r, g, b, 0});
+        draw_GradientRect( x, y+2, 200 , 22, 1 , { 4, 4, 4, 0 }, {4, 4, 4, 140});
+        draw_GradientRect( x, y, 10 , 24, 1 , { r, g, b, 0 }, {r, g, b, a*0.8});
+        draw_GradientRect( x, y, 20 , 24, 1 , { r, g, b, 0 }, {r, g, b, a*0.65});
+        draw_GradientRect( x+190, y, 10 , 24, 1 , { r, g, b, a*0.8 }, {r, g, b, 0});
+        draw_GradientRect( x+180, y, 20 , 24, 1 , { r, g, b, a*0.65 }, {r, g, b, 0});
+        draw.SetFont( font )
+        draw.Color( r2, g2, b2, a2  )
+        local version = string.upper(version)
+        draw.TextShadow( x+5, y+8, version.."  |  ".."                   |  Status:" )
+        draw.Color( r, g, b, a )
+        draw.TextShadow( x+5, y+8, "                         Lua Public")
+
+        if  Update == 1 then
+        draw.Color( 190, 237, 28, 255 )
+        else
+        draw.Color( 255, 0, 0, 255 )
+        end
+        draw.SetFont( font2 )
+        draw.Text( x+185, y+4, "●")
+
+
+    end
+
+end
+callbacks.Register("Draw", Update_indicator);
 
 --jitter fakelag
 --
-local font = draw.CreateFont( "Verdana", 12.5, 11.5 )
 local function jitter_fakelag()
     if tX ~= custom_fakelag_indicator_x:GetValue() or tY ~= custom_fakelag_indicator_y:GetValue() then
         tX, tY = custom_fakelag_indicator_x:GetValue(),custom_fakelag_indicator_y:GetValue()
