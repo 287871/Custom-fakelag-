@@ -3,7 +3,7 @@
 --Part of the code comes from the aimware forum
 --Producer: Qi QID AIMWAREQI
 -- Update
-local version = "version 1.1"
+local version = "version 1.2"
 local version_url = "https://raw.githubusercontent.com/287871/Custom-fakelag-/main/VERSION.txt"
 print("-------------------")
 http.Get(version_url, function(content)
